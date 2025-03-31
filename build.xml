@@ -1,4 +1,4 @@
-<project name="Tone" default="compile" basedir=".">
+<project name="SongManager" default="compile" basedir=".">
     <!--  set global properties for this build  -->
     <property name="src" location="src"/>
     <property name="dist" location="dist"/>
