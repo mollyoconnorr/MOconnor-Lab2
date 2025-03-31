@@ -1,5 +1,8 @@
 import javax.sound.sampled.SourceDataLine;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -29,8 +32,7 @@ public class Conductor {
             BellThread thread = new BellThread(note1, note2, bellNotes, sourceDataLine, name);
             if (note2 != null) {
                 System.out.println(name + " is responsible for notes: " + note1 + " and " + note2);
-            }
-            else {
+            } else {
                 System.out.println(name + " is responsible for note: " + note1);
             }
             bellThreads.add(thread);

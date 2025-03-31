@@ -56,17 +56,15 @@ enum Note {
 
     public static final int SAMPLE_RATE = 48 * 1024; // ~48KHz
     public static final int MEASURE_LENGTH_SEC = 1;
-    public static boolean bellAssigned = false;
-
     // Circumference of a circle divided by # of samples
     private static final double step_alpha = (2.0d * Math.PI) / SAMPLE_RATE;
-
+    public static boolean bellAssigned = false;
     private final double FREQUENCY_A_HZ = 440.0d;
     private final double MAX_VOLUME = 127.0d;
 
     private final byte[] sinSample = new byte[MEASURE_LENGTH_SEC * SAMPLE_RATE];
 
-    private Note() {
+    Note() {
         int n = this.ordinal();
         if (n > 0) {
             // Calculate the frequency!

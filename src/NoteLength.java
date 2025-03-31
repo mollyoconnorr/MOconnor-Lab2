@@ -6,7 +6,7 @@ enum NoteLength {
 
     private final int timeMs;
 
-    private NoteLength(float length) {
+    NoteLength(float length) {
         timeMs = (int) (length * Note.MEASURE_LENGTH_SEC * 1000);
     }
 

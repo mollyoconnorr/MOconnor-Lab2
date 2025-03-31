@@ -5,10 +5,10 @@ public class BellThread extends Thread {
     private final Note note1;
     private final Note note2;
     private final SourceDataLine sourceDataLine;
-    private volatile boolean running = true;
     private final BlockingQueue<BellNote> noteQueue;
-    private boolean myTurn;
     private final String name;
+    private volatile boolean running = true;
+    private boolean myTurn;
 
 
     public BellThread(Note note1, Note note2, BlockingQueue<BellNote> noteQueue, SourceDataLine sourceDataLine, String name) {
@@ -60,22 +60,24 @@ public class BellThread extends Thread {
             while (myTurn) {
                 try {
                     wait();
-                } catch (InterruptedException ignored) {}
+                } catch (InterruptedException ignored) {
+                }
             }
         }
     }
+
     public void stopTurn() throws InterruptedException {
         running = false;
         interrupt();
     }
 
     private void playNote(SourceDataLine line, BellNote bn) {
-        if (Thread.currentThread() instanceof BellThread) {
-            BellThread current = (BellThread) Thread.currentThread();
+        if (Thread.currentThread() instanceof BellThread current) {
             System.out.println(current.getMemberName() + " is playing note: " + bn.note);
         } else {
             System.out.println("Unknown thread is playing note: " + bn.note);
-        }        final int ms = Math.min(bn.length.timeMs(), Note.MEASURE_LENGTH_SEC * 1000);
+        }
+        final int ms = Math.min(bn.length.timeMs(), Note.MEASURE_LENGTH_SEC * 1000);
         final int length = Note.SAMPLE_RATE * ms / 1000;
         line.write(bn.note.sample(), 0, length);
         line.write(Note.REST.sample(), 0, 50);
@@ -84,6 +86,7 @@ public class BellThread extends Thread {
     public Note getNote1() {
         return note1;
     }
+
     public Note getNote2() {
         return note2;
     }

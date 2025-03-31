@@ -1,15 +1,23 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.*;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Tone {
 
-    public static void main(String[] args)  {
+    private final AudioFormat af;
+    State state;
+
+    Tone(AudioFormat af) {
+        this.af = af;
+    }
+
+    public static void main(String[] args) {
         if (args.length < 1) {
             System.err.println("No song provided");
             return;
@@ -29,29 +37,6 @@ public class Tone {
             t.playSong(song);
         } catch (LineUnavailableException e) {
             System.err.println("Error: Unable to play song due to audio system issues.");
-            throw new RuntimeException(e);
-        }
-    }
-
-    private final AudioFormat af;
-
-    Tone(AudioFormat af) {
-        this.af = af;
-    }
-
-    private enum State {
-        A, B, C, D, E, F, G; // Add more if needed
-    }
-
-    State state;
-
-    void playSong(List<BellNote> song) throws LineUnavailableException {
-        try (final SourceDataLine line = AudioSystem.getSourceDataLine(af)) {
-            line.open();
-            line.start();
-            new Conductor(song, line);
-            line.drain();
-        } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
@@ -108,6 +93,21 @@ public class Tone {
         } else {
             return null;
         }
+    }
+
+    void playSong(List<BellNote> song) throws LineUnavailableException {
+        try (final SourceDataLine line = AudioSystem.getSourceDataLine(af)) {
+            line.open();
+            line.start();
+            new Conductor(song, line);
+            line.drain();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private enum State {
+        A, B, C, D, E, F, G // Add more if needed
     }
 }
 
