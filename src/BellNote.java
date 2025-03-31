@@ -6,4 +6,8 @@ class BellNote {
         this.note = note;
         this.length = length;
     }
+
+    public Note getNote() {
+        return note;
+    }
 }
