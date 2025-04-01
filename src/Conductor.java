@@ -56,12 +56,13 @@ public class Conductor {
             thread.start();
         }
 
-        // Start the song by giving each thread its turn to play the notes
         System.out.println("Song starting...");
         for (BellNote bn : bellNotes) {
-            Note note = bn.getNote();
+            Note note = bn.getNote(); // Get just the note value (e.g. A5)
+            // Loop through the threads and check if that note belongs to the thread
             for (BellThread bellThread : bellThreads) {
                 if (bellThread.getNote1() == note || bellThread.getNote2() == note) {
+                    // If note does belong to the thread than give that thread a turn to play
                     bellThread.giveTurn();
                 }
             }

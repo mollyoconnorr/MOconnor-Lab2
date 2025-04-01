@@ -27,7 +27,7 @@ public class SongManager {
     // Main method to start the playback of the song
     public static void main(String[] args) {
         if (args.length < 1) {
-            System.err.println("No song provided");
+            System.err.println("Error: No song file provided. Please specify the path to the song.");
             return;
         }
 
@@ -35,7 +35,7 @@ public class SongManager {
         List<BellNote> song = loadSong(filePath);  // Load the song from the file
 
         if (song.isEmpty()) {
-            System.err.println("Error: The song file is empty or could not be loaded correctly.");
+            System.err.println("Error: The song file is empty or could not be loaded properly. Please check the file format.");
             return;
         }
 
@@ -43,10 +43,10 @@ public class SongManager {
         SongManager t = new SongManager(af);  // Create a new Tone object
         try {
             t.playSong(song);  // Play the loaded song
-            System.out.println("Song played successfully.");
+            System.out.println("Success: Song played successfully.");
         } catch (LineUnavailableException e) {
-            System.err.println("Error: Unable to play song due to audio system issues.");
-            throw new RuntimeException(e);
+            System.err.println("Error: Unable to play the song due to audio system issues. " + e.getMessage());
+            throw new RuntimeException("Audio playback error", e);
         }
     }
 
@@ -64,8 +64,15 @@ public class SongManager {
                 }
             }
         } catch (IOException e) {
-            System.err.println("Error reading file: " + e.getMessage());
+            System.err.println("Error: Failed to read the file at " + filePath + ". " + e.getMessage());
         }
+
+        if (song.isEmpty()) {
+            System.err.println("Warning: The song file is empty or no valid notes were found.");
+        } else {
+            System.out.println("Info: Successfully loaded " + song.size() + " valid notes from the song.");
+        }
+
         return song;  // Return the loaded song
     }
 
@@ -73,7 +80,7 @@ public class SongManager {
     private static BellNote toBellNote(String line) {
         String[] parts = line.split("\\s+");  // Split the line into parts (note and length)
         if (parts.length != 2) {
-            System.err.println("Invalid line format in song: " + line + ", playing all valid notes provided...");
+            System.err.println("Error: Invalid line format in song: \"" + line + "\". Each line must contain a note and a length.");
             return null;
         }
         try {
@@ -82,12 +89,12 @@ public class SongManager {
 
             NoteLength length = getNoteLength(lengthValue);  // Convert length to NoteLength enum
             if (length == null) {
-                System.err.println("Invalid note length: " + parts[1] + ", playing all valid notes provided...");
+                System.err.println("Error: Invalid note length \"" + parts[1] + "\" in song: \"" + line + "\". Length values must be valid. Note will be removed from song.");
                 return null;
             }
             return new BellNote(note, length);  // Return a new BellNote object
         } catch (IllegalArgumentException e) {
-            System.err.println("Invalid note: " + parts[0] + ", playing all valid notes provided...");
+            System.err.println("Error: Invalid note value \"" + parts[0] + "\" in song: \"" + line + "\". Please provide a valid note. Note will be removed from song.");
             return null;
         }
     }

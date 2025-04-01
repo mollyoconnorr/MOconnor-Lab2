@@ -20,7 +20,7 @@
         </jar>
     </target>
     <target name="songarg" unless="song">
-        <property name="song" value="${basedir}/MaryLamb.txt"/>
+        <property name="song" value="${basedir}/Twinkle.txt"/>
     </target>
     <target name="run" depends="jar,songarg">
         <java jar="${dist}/${ant.project.name}.jar" fork="true">
