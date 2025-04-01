@@ -15,6 +15,18 @@
     <li>Supports various songs as long as they are correctly formatted.</li>
 </ul>
 
+<h3>Classes</h3>
+<p>To view UML Diagrams, click here! <a href="https://github.com/user-attachments/files/18914096/Juice.Bottler_.UML.Diagrams.pdf" target="_blank">Juice Bottler UML Diagrams PDF</a></p>
+
+<ol>
+    <li><strong>Note (Enum)</strong>: Defines musical notes and their corresponding frequencies, including the "REST" note for silence, to generate sinusoidal waveforms for audio playback.</li>
+    <li><strong>NoteLength (Enum)</strong>: Represents different note lengths (e.g., whole, half, quarter) and their corresponding duration in milliseconds.</li>
+    <li><strong>BellNote</strong>: Represents a musical note with its corresponding duration, used for creating and processing notes in the song.</li>
+    <li><strong>BellThread</strong>: Manages musical note playback in a threaded environment, synchronizing the execution of each thread to ensure notes are played in the correct order. It interacts with the Conductor class to handle note timing.</li>
+    <li><strong>SongManager</strong>: Handles loading and playing a song represented as a sequence of BellNotes, converting them to audio and playing them through the system’s audio output.</li>
+    <li><strong>Conductor</strong>: Coordinates the synchronization of BellThread instances, ensuring each thread plays its designated note at the correct time, based on the song's structure.</li>
+</ol>
+
 <h2>Project Requirements and How They Were Met</h2>
 <table>
     <tr>
