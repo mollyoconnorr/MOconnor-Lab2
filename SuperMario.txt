@@ -10,7 +10,6 @@ G5 4
 REST 4
 G4 4
 REST 4
-### A
 C5 4
 REST 8
 G4 8
@@ -37,7 +36,6 @@ C5 8
 D5 8
 B5 8
 REST 4
-### B
 C5 4
 REST 8
 G4 8
@@ -64,7 +62,6 @@ C5 8
 D5 8
 B5 8
 REST 4
-### B
 REST 4
 REST 4
 G5 8
@@ -118,7 +115,6 @@ D5 8
 REST 4
 C5 2
 REST 2
-### NEW PART
 C5 8
 C5 8
 REST 8
@@ -168,8 +164,6 @@ G5 4
 REST 4
 G4 2
 REST 4
-### NEW PART
-### PART 5
 C5 4
 REST 8
 G4 8
@@ -196,7 +190,6 @@ C5 8
 D5 8
 B5 8
 REST 4
-### PART 6
 C5 4
 REST 8
 G4 8
@@ -223,8 +216,6 @@ C5 8
 D5 8
 B5 8
 REST 4
-### new part
-### PART 7
 E5 8
 C5 4
 REST 8
@@ -238,7 +229,6 @@ REST 8
 F5 8
 A4 8
 REST 2
-### PART 8
 G4 8
 F5 8
 REST 8
@@ -254,7 +244,6 @@ REST 8
 A4 8
 G4 4
 REST 4
-### FINAL STRETCH
 E5 8
 C5 8
 REST 8
@@ -268,7 +257,6 @@ REST 8
 F5 8
 A4 8
 REST 2
-### PART 8
 G4 8
 F5 8
 REST 8
@@ -279,5 +267,3 @@ E5 8
 REST 8
 D5 8
 C5 1
-
-
