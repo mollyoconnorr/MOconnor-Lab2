@@ -16,7 +16,7 @@
 </ul>
 
 <h3>Classes</h3>
-<p>To view UML Diagrams, click here! <a href="https://github.com/user-attachments/files/18914096/Juice.Bottler_.UML.Diagrams.pdf" target="_blank">Juice Bottler UML Diagrams PDF</a></p>
+<p>To view UML Diagrams, click here! <a href="https://github.com/user-attachments/files/18914096/Juice.Bottler_.UML.Diagrams.pdf" target="_blank">Bell Choir UML Diagrams PDF</a></p>
 
 <ol>
     <li><strong>Note (Enum)</strong>: Defines musical notes and their corresponding frequencies, including the "REST" note for silence, to generate sinusoidal waveforms for audio playback.</li>
