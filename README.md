@@ -70,6 +70,13 @@
         <td>The project is version-controlled with Git and hosted on GitHub.</td>
     </tr>
 </table>
+<h2>Extra Credit Implementations</h2>
+
+<h3>1. Creating a Custom Song: Super Mario Bros.</h3>
+<p>For extra credit, I implemented my own version of the Super Mario Bros. theme song. This involved converting the sheet music into a sequence of BellNotes that could be played by the choir members. I carefully mapped each note and its corresponding duration, and used the existing system to simulate the song's melody. The result was a rendition of the iconic theme, all handled through the Bell Choir program's multi-threaded system.</p>
+
+<h3>2. Supporting Flat Notes</h3>
+<p>Another feature I added was the ability to read and play flat notes in the song files. In musical notation, a flat note is typically written as a note lowered by a half-step (e.g., <code>B♭</code>), which is functionally equivalent to the note below its corresponding sharp note (e.g., <code>A#</code>). To handle this, I implemented a system where flat notes were aliased to their corresponding sharp notes, ensuring that the program could recognize and play them correctly. This allowed for better flexibility in reading various sheet music formats that may use flat notes instead of sharps. This implementation can specifically be seen in the SongWithFlats.txt file which plays a chromatic scale using flat notes.</p>
 
 <h2>Challenges Faced</h2>
 
@@ -166,6 +173,11 @@ public void giveTurn() {
 </pre>
 
 <p>This made sure that only one thread played at a time and prevented any overlapping sounds. The <code>giveTurn()</code> method ensured that each thread only played when it was supposed to, keeping the timing of the song smooth.</p>
+
+<h3>4. Handling the Triplet Note in Super Mario Bros.</h3>
+<p>While working on the Super Mario Bros. song, I encountered a challenge with a triplet note in the sheet music. There wasn't a built-in implementation to play triplets directly, so I had to find a workaround to replicate this effect.</p>
+
+<p>The triplet note involves playing three notes in the space of two, which creates a rhythmic grouping that's distinct from regular quarter or eighth notes. Since the program couldn't handle this specific rhythm, I decided to simulate the triplet effect by adjusting the timing and using a combination of various notes and small rests to create a similar rhythm.</p>
 
 <h2>How to Run the Project</h2>
 
