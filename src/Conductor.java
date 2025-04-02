@@ -18,6 +18,7 @@ public class Conductor {
     private final List<BellThread> bellThreads; // List of threads to manage
     private final BlockingQueue<BellNote> bellNotes; // Queue for storing notes to be played
     private final SourceDataLine sourceDataLine; // Used for output audio
+//    private final boolean validSong;
 
     /**
      * Constructor that initializes the conductor, prepares the threads, and starts the song.
@@ -39,6 +40,7 @@ public class Conductor {
 
         int threadCount = (int) Math.ceil(uniqueNotes.size() / 2.0); // Calculate number of threads needed
         List<Note> noteList = new ArrayList<>(uniqueNotes);
+        // Assign a REST to a thread as well, will help with synchronization
 
         // Create BellThread instances for each pair of unique notes
         for (int i = 0; i < threadCount; i++) {

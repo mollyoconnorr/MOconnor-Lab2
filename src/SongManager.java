@@ -18,6 +18,7 @@ import java.util.List;
 public class SongManager {
 
     private final AudioFormat af;  // Audio format used for playback
+    private static boolean validSong = true;
 
     // Constructor to initialize the Tone with a specific AudioFormat
     SongManager(AudioFormat af) {
@@ -27,7 +28,7 @@ public class SongManager {
     // Main method to start the playback of the song
     public static void main(String[] args) {
         if (args.length < 1) {
-            System.err.println("Error: No song file provided. Please specify the path to the song.");
+            System.err.println("No song provided");
             return;
         }
 
@@ -35,7 +36,11 @@ public class SongManager {
         List<BellNote> song = loadSong(filePath);  // Load the song from the file
 
         if (song.isEmpty()) {
-            System.err.println("Error: The song file is empty or could not be loaded properly. Please check the file format.");
+            System.err.println("Error: The song file is empty or could not be loaded correctly.");
+            return;
+        }
+        if (!validSong) {
+            System.err.println("Error: The song file has issues and could not be loaded correctly.");
             return;
         }
 
@@ -43,10 +48,9 @@ public class SongManager {
         SongManager t = new SongManager(af);  // Create a new Tone object
         try {
             t.playSong(song);  // Play the loaded song
-            System.out.println("Success: Song played successfully.");
         } catch (LineUnavailableException e) {
-            System.err.println("Error: Unable to play the song due to audio system issues. " + e.getMessage());
-            throw new RuntimeException("Audio playback error", e);
+            System.err.println("Error: Unable to play song due to audio system issues.");
+            throw new RuntimeException(e);
         }
     }
 
@@ -57,30 +61,26 @@ public class SongManager {
         // Read each line from the song file
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
+            int lineCount = 0;
             while ((line = br.readLine()) != null) {
-                BellNote bellNote = toBellNote(line);  // Convert each line to a BellNote
+                lineCount++;
+                BellNote bellNote = toBellNote(line, lineCount);  // Convert each line to a BellNote
                 if (bellNote != null) {
                     song.add(bellNote);  // Add valid BellNote to the song list
                 }
             }
         } catch (IOException e) {
-            System.err.println("Error: Failed to read the file at " + filePath + ". " + e.getMessage());
+            System.err.println("Error reading file: " + e.getMessage());
         }
-
-        if (song.isEmpty()) {
-            System.err.println("Warning: The song file is empty or no valid notes were found.");
-        } else {
-            System.out.println("Info: Successfully loaded " + song.size() + " valid notes from the song.");
-        }
-
         return song;  // Return the loaded song
     }
 
     // Method to convert a line of text to a BellNote
-    private static BellNote toBellNote(String line) {
+    private static BellNote toBellNote(String line, int lineCount) {
         String[] parts = line.split("\\s+");  // Split the line into parts (note and length)
         if (parts.length != 2) {
-            System.err.println("Error: Invalid line format in song: \"" + line + "\". Each line must contain a note and a length.");
+            validSong = false;
+            System.err.println("Error (Line " + lineCount + "): Invalid format - \"" + line + "\". Expected format: <NOTE> <LENGTH>.");
             return null;
         }
         try {
@@ -89,12 +89,13 @@ public class SongManager {
 
             NoteLength length = getNoteLength(lengthValue);  // Convert length to NoteLength enum
             if (length == null) {
-                System.err.println("Error: Invalid note length \"" + parts[1] + "\" in song: \"" + line + "\". Length values must be valid. Note will be removed from song.");
+                validSong = false;
+                System.err.println("Error (Line " + lineCount + "): Invalid note length - \"" + parts[1] + "\".");
                 return null;
             }
             return new BellNote(note, length);  // Return a new BellNote object
         } catch (IllegalArgumentException e) {
-            System.err.println("Error: Invalid note value \"" + parts[0] + "\" in song: \"" + line + "\". Please provide a valid note. Note will be removed from song.");
+            System.err.println("Error (Line " + lineCount + "): Invalid note - \"" + parts[0] + "\".");
             return null;
         }
     }
