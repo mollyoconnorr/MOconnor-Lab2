@@ -1,4 +1,4 @@
-# Bell Choir Project - Synchronization in Multi-Threading
+# Bell Choir Lab
 
 <h2>Overview</h2>
 <p>The Bell Choir project is a multi-threaded Java program that plays songs using a simulated bell choir. Each note in a song is assigned to a member of the choir, and the conductor coordinates when each member plays their assigned notes to ensure correct sequencing and timing. The program reads a song file containing a list of bell notes and plays them in order, following the correct tempo and note lengths.</p>
